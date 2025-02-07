@@ -52,8 +52,7 @@ class HomePage extends StatelessWidget {
               padding: const EdgeInsets.all(16), // Espaço interno
               decoration: BoxDecoration(
                 image: const DecorationImage(
-                  image: AssetImage(
-                      'assets/imagem_fundo.jpg'), // Caminho da imagem
+                  image: AssetImage('assets/bg-home.png'), // Caminho da imagem
                   fit: BoxFit.cover, // Ajusta a imagem no container
                 ),
                 borderRadius: BorderRadius.circular(16), // Borda arredondada
@@ -67,7 +66,7 @@ class HomePage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF061F3E), // Cor do texto
+                      color: Color(0xFF061F3E),
                     ),
                   ),
                   const SizedBox(height: 4),
@@ -84,12 +83,11 @@ class HomePage extends StatelessWidget {
                       // Ação do botão
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blue, // Cor do botão
+                      backgroundColor: const Color(0xFF061F3E),
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 12), // Espaçamento interno
+                          horizontal: 48, vertical: 16),
                       shape: RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.circular(8), // Borda arredondada
+                        borderRadius: BorderRadius.circular(50),
                       ),
                     ),
                     child: const Text(
