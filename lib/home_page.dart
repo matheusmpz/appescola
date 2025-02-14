@@ -1,5 +1,20 @@
 import 'package:flutter/material.dart';
 
+// Definindo as cores como constantes
+const Color primaryColor = Color(0xFF061F3E);
+const Color secondaryColor = Color(0xFF061F3E);
+const TextStyle headerStyle = TextStyle(
+  fontSize: 24,
+  fontWeight: FontWeight.bold,
+  fontFamily: 'Archivo',
+  color: primaryColor,
+);
+const TextStyle normalTextStyle = TextStyle(
+  fontSize: 24,
+  fontFamily: 'Archivo',
+  color: primaryColor,
+);
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -19,39 +34,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 100,
-        title: const Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Bem vindo,",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Archivo',
-                  color: Color(0xFF061F3E)),
-            ),
-            Text(
-              "Samuel Kanudo!",
-              style: TextStyle(
-                  fontSize: 24,
-                  fontFamily: 'Archivo',
-                  color: Color(0xFF061F3E)),
-            ),
-          ],
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(
-              Icons.notifications,
-              color: Color(0xFF061F3E),
-              size: 32,
-            ),
-          ),
-        ],
-      ),
       body: IndexedStack(
         index: _selectedIndex,
         children: const [
@@ -63,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: const Color(0xFF061F3E),
+        selectedItemColor: primaryColor,
         unselectedItemColor: Colors.grey,
         items: const [
           BottomNavigationBarItem(
@@ -92,7 +74,26 @@ class HomeScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Bem vindo,", style: headerStyle),
+                  Text("Samuel Kanudo!", style: normalTextStyle),
+                ],
+              ),
+              // Ícone na direita
+              IconButton(
+                icon: const Icon(Icons.notifications, color: primaryColor),
+                onPressed: () {},
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
           Container(
             width: double.infinity,
             height: 160,
@@ -108,27 +109,14 @@ class HomeScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text(
-                  "Acesse sua",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF061F3E),
-                  ),
-                ),
+                const Text("Acesse sua", style: headerStyle),
                 const SizedBox(height: 4),
-                const Text(
-                  "Agenda Virtual",
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: Color(0xFF061F3E),
-                  ),
-                ),
+                const Text("Agenda Virtual", style: normalTextStyle),
                 const SizedBox(height: 12),
                 ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF061F3E),
+                    backgroundColor: primaryColor,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 48, vertical: 16),
                     shape: RoundedRectangleBorder(
@@ -154,9 +142,7 @@ class ScheduleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Text("Agenda Virtual"),
-    );
+    return const Center(child: Text('Agenda Screen'));
   }
 }
 
@@ -200,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Color(0xFF061F3E),
+                      color: primaryColor,
                     ),
                   ),
                 ],
@@ -234,6 +220,7 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
+// Definindo o widget ProfileMenuItem
 class ProfileMenuItem extends StatelessWidget {
   final IconData icon;
   final String text;
@@ -248,33 +235,10 @@ class ProfileMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return ListTile(
+      leading: Icon(icon, color: primaryColor),
+      title: Text(text, style: const TextStyle(color: primaryColor)),
       onTap: onTap,
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 16),
-        margin: const EdgeInsets.only(bottom: 12),
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          children: [
-            Icon(icon, color: Colors.black87),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                text,
-                style: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.black87,
-                ),
-              ),
-            ),
-            const Icon(Icons.chevron_right, color: Colors.black45),
-          ],
-        ),
-      ),
     );
   }
 }
