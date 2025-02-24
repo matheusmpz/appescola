@@ -1,218 +1,173 @@
 import 'package:flutter/material.dart';
 
-// Definindo as cores como constantes
-const Color primaryColor = Color(0xFF061F3E);
-const Color secondaryColor = Color(0xFF061F3E);
-const TextStyle headerStyle = TextStyle(
-  fontSize: 24,
-  fontWeight: FontWeight.bold,
-  fontFamily: 'Archivo',
-  color: primaryColor,
-);
-const TextStyle normalTextStyle = TextStyle(
-  fontSize: 24,
-  fontFamily: 'Archivo',
-  color: primaryColor,
-);
-
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
-
-  @override
-  _HomePageState createState() => _HomePageState();
+void main() {
+  runApp(const MyApp());
 }
 
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: HomePage(),
+    );
   }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: const [
-          HomeScreen(),
-          ScheduleScreen(),
-          ProfileScreen(),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        selectedItemColor: primaryColor,
-        unselectedItemColor: Colors.grey,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Início',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_today),
-            label: 'Agenda',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Perfil',
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("Bem vindo,", style: headerStyle),
-                  Text("Samuel Kanudo!", style: normalTextStyle),
-                ],
-              ),
-              // Ícone na direita
-              IconButton(
-                icon: const Icon(Icons.notifications, color: primaryColor),
-                onPressed: () {},
-              ),
-            ],
-          ),
-          const SizedBox(height: 16),
-          Container(
-            width: double.infinity,
-            height: 160,
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage('assets/bg-home.png'),
-                fit: BoxFit.cover,
-              ),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
+      backgroundColor: Colors.white,
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const SizedBox(height: 40),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text("Acesse sua", style: headerStyle),
-                const SizedBox(height: 4),
-                const Text("Agenda Virtual", style: normalTextStyle),
-                const SizedBox(height: 12),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 48, vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Bem vindo,',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Samuel Kanudo!',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                  ],
+                ),
+                Icon(
+                  Icons.notifications,
+                  size: 30,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            Container(
+              height: 160,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                image: const DecorationImage(
+                  image: AssetImage('assets/bg-home.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Acesse sua',
+                          style: TextStyle(
+                            fontSize: 18,
+                          ),
+                        ),
+                        const Text(
+                          'AgendaVirtual',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: const Color(0xFF061F3E),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                          onPressed: () {},
+                          child: const Text(
+                            'Ver agenda',
+                            style: TextStyle(color: Color(0xFFEEEEEE)),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: const Text(
-                    "Ver mais",
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                ],
+              ),
+            ),
+            const SizedBox(height: 20),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Acesso rápido',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  'Ver todos',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.grey,
                   ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ScheduleScreen extends StatelessWidget {
-  const ScheduleScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Agenda Screen'));
-  }
-}
-
-class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 28,
-                backgroundColor: Colors.grey[300],
-                child: const Text(
-                  "S",
-                  style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
-              ),
-              const SizedBox(width: 12),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            const SizedBox(height: 10),
+            Expanded(
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 10,
+                mainAxisSpacing: 10,
                 children: [
-                  Text(
-                    "Bem vindo de volta,",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.grey[600],
-                    ),
+                  const QuickAccessCard(
+                    title: 'Atividades\nEscolares',
+                    color: Color(0xFF061F3E),
+                    textColor: Colors.white,
+                    buttonColor: Colors.white,
+                    buttonTextColor: Color(0xFF061F3E),
                   ),
-                  const Text(
-                    "Samuel Kanudo!",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: primaryColor,
-                    ),
+                  QuickAccessCard(
+                    title: 'Ocorrências\ne Alertas',
+                    color: Colors.grey[300]!,
+                    textColor: const Color(0xFF061F3E),
+                    buttonColor: const Color(0xFF061F3E),
+                    buttonTextColor: Colors.white,
                   ),
                 ],
               ),
-            ],
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color(0xFF061F3E),
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.dashboard),
+            label: 'Dashboard',
           ),
-          const SizedBox(height: 24),
-          ProfileMenuItem(
-            icon: Icons.sync,
-            text: "Alterar senha",
-            onTap: () {},
+          BottomNavigationBarItem(
+            icon: Icon(Icons.calendar_today),
+            label: '',
           ),
-          ProfileMenuItem(
-            icon: Icons.info_outline,
-            text: "Sobre",
-            onTap: () {},
-          ),
-          ProfileMenuItem(
-            icon: Icons.help_outline,
-            text: "Ajuda",
-            onTap: () {},
-          ),
-          ProfileMenuItem(
-            icon: Icons.exit_to_app,
-            text: "Sair",
-            onTap: () {},
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: '',
           ),
         ],
       ),
@@ -220,25 +175,54 @@ class ProfileScreen extends StatelessWidget {
   }
 }
 
-// Definindo o widget ProfileMenuItem
-class ProfileMenuItem extends StatelessWidget {
-  final IconData icon;
-  final String text;
-  final VoidCallback onTap;
+class QuickAccessCard extends StatelessWidget {
+  final String title;
+  final Color color;
+  final Color textColor;
+  final Color buttonColor;
+  final Color buttonTextColor;
 
-  const ProfileMenuItem({
+  const QuickAccessCard({
     super.key,
-    required this.icon,
-    required this.text,
-    required this.onTap,
+    required this.title,
+    required this.color,
+    required this.textColor,
+    required this.buttonColor,
+    required this.buttonTextColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(icon, color: primaryColor),
-      title: Text(text, style: const TextStyle(color: primaryColor)),
-      onTap: onTap,
+    return Container(
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      padding: const EdgeInsets.all(16),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 18,
+              color: textColor,
+            ),
+          ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              foregroundColor: buttonTextColor,
+              backgroundColor: buttonColor,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            onPressed: () {},
+            child: const Text('Acessar'),
+          ),
+        ],
+      ),
     );
   }
 }
