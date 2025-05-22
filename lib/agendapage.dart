@@ -10,7 +10,7 @@ class Agendapage extends StatefulWidget {
 }
 
 class _AgendapageState extends State<Agendapage> {
-  final Map<DateTime, List<String>> _events = {};
+  final Map<DateTime, List<Map<String, dynamic>>> _events = {};
 
   @override
   void initState() {
@@ -26,7 +26,7 @@ class _AgendapageState extends State<Agendapage> {
         if (_events[date] == null) {
           _events[date] = [];
         }
-        _events[date]!.add(evento['evento']);
+        _events[date]!.add({'id': evento['id'], 'evento': evento['evento']});
       }
     });
   }
@@ -91,42 +91,40 @@ class _AgendapageState extends State<Agendapage> {
     );
   }
 
-  void _deleteEvento(String evento, DateTime date) async {
-    final formattedDate = date.toIso8601String();
-    final eventos = await DatabaseHelper.getEventos();
-
-    // Encontre o evento correspondente no banco de dados
-    final eventoParaExcluir = eventos.firstWhere(
-      (e) => e['evento'] == evento && e['data'] == formattedDate,
-      orElse: () => {}, // Retorna null se o evento não for encontrado
-    );
-
-    // Exibir um diálogo de confirmação antes de excluir
-    final confirm = await showDialog<bool>(
+  void confirmarDelete(int id) {
+    showDialog(
       context: context,
-      builder: (context) {
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text("Excluir Evento"),
-          content: Text("Tem certeza que deseja excluir o evento \"$evento\"?"),
+          title: const Text("Excluir evento"),
+          content: const Text("Você tem certeza que deseja excluir?"),
           actions: [
             TextButton(
-              onPressed: () => Navigator.pop(context, false),
               child: const Text("Cancelar"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
             TextButton(
-              onPressed: () => Navigator.pop(context, true),
               child: const Text("Excluir"),
-            ),
+              onPressed: () {
+                _deletarEvento(id);
+                Navigator.of(context).pop();
+              },
+            )
           ],
         );
       },
     );
+  }
 
-    if (confirm == true) {
-      // Remova o evento usando o ID
-      await DatabaseHelper.deletarEvento(eventoParaExcluir['id']);
-      _loadEventos();
-    }
+  void _deletarEvento(int id) async {
+    await DatabaseHelper.deletarEvento(id);
+    setState(() {
+      _events
+          .removeWhere((key, value) => value.any((event) => event['id'] == id));
+    });
+    _loadEventos();
   }
 
   @override
@@ -177,14 +175,15 @@ class _AgendapageState extends State<Agendapage> {
             Expanded(
               child: ListView(
                 children: _events.entries.expand((entry) {
-                  return entry.value.map((event) {
+                  return entry.value.map((eventMap) {
                     return _buildEventCard(
-                      title: event,
+                      title: eventMap['evento'],
                       date:
                           "${entry.key.day}/${entry.key.month}/${entry.key.year}",
                       color: Colors.grey[300]!,
                       onDelete: () async {
-                        _deleteEvento(event, entry.key);
+                        // Replace with the correct ID of the event
+                        confirmarDelete(eventMap['id']);
                       },
                     );
                   });

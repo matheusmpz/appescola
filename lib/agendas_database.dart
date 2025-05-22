@@ -43,7 +43,7 @@ class DatabaseHelper {
     final db = await getDatabase();
     await db.delete(
       tableEvento,
-      where: 'id = ?',
+      where: "id = ?",
       whereArgs: [id],
     );
   }
