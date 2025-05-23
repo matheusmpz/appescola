@@ -1,11 +1,17 @@
+import 'package:appescola/agendapage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
+
+  final List<Widget> telas = [
+    const HomePage(),
+    const Agendapage(),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -163,11 +169,11 @@ class HomePage extends StatelessWidget {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.calendar_today),
-            label: '',
+            label: 'agenda',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
-            label: '',
+            label: 'Perfil',
           ),
         ],
       ),
